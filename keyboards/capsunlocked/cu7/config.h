@@ -66,7 +66,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 #define RGB_DI_PIN F1
-#ifdef RGB_DI_PIN
+#ifdef RGBLIGHT_ENABLE
 #define RGBLIGHT_ANIMATIONS
 // #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLED_NUM 6
