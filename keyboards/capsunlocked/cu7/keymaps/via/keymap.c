@@ -37,3 +37,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______
   ),
 };
+
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    int layer = get_highest_layer(layer_state|default_layer_state);
+
+    for (uint8_t i = led_min; i <= led_max; i++) {
+        HSV hsv = rgb_matrix_get_hsv();
+        hsv.h += layer * 64;
+        RGB rgb = hsv_to_rgb(hsv);
+        rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+    }
+}
