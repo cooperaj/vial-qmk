@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include <lib/lib8tion/lib8tion.h>
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(
@@ -38,13 +39,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
+#ifdef RGB_MATRIX_CUSTOM_USER
+void keyboard_post_init_user(void) {
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_SOLID_REACTIVE_LAYER);
+}
+#endif
+
+#ifdef SIMPLE_CU7_LAYER_RGB
+// Default layer gets to use fancy matrix animations but any other layers
+// get a static colour calculated from the default.
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     int layer = get_highest_layer(layer_state|default_layer_state);
-
-    for (uint8_t i = led_min; i <= led_max; i++) {
-        HSV hsv = rgb_matrix_get_hsv();
-        hsv.h += layer * 64;
+  
+    if (layer > 0) {
+        HSV user_set_hsv = rgb_matrix_get_hsv();
+        HSV hsv = {addmod8(user_set_hsv.h, layer * 48, 255), user_set_hsv.s, user_set_hsv.v};
         RGB rgb = hsv_to_rgb(hsv);
-        rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+
+        for (uint8_t i = led_min; i <= led_max; i++) {
+            rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+        }
     }
 }
+#endif
