@@ -3,6 +3,10 @@
 
 #include "../../config.h"
 
+#ifdef RGB_MATRIX_CUSTOM_USER
+#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 1
+#endif 
+
 #define DRIVER_LED_TOTAL 6
 // #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES

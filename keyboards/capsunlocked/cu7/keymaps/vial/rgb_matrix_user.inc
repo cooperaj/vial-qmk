@@ -1,7 +1,9 @@
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
+
 RGB_MATRIX_EFFECT(SOLID_REACTIVE_LAYER)
 
     #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+
 
 static HSV SOLID_REACTIVE_LAYER_math(HSV hsv, uint16_t offset) {
     int layer = get_highest_layer(layer_state|default_layer_state);
