@@ -59,7 +59,7 @@ void keyboard_post_init_user(void) {
     user_config.raw = eeconfig_read_user();
 
     if (user_config.rgb_solid_reactive_layer) {
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_SOLID_REACTIVE_LAYER);
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_SOLID_REACTIVE_LAYER_FLASH);
     }
 }
 
@@ -68,7 +68,7 @@ void eeconfig_init_user(void) { // EEPROM is getting reset!
     user_config.rgb_solid_reactive_layer = false; // off by default
     eeconfig_update_user(user_config.raw);
 
-    rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_SOLID_REACTIVE_LAYER);
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_SOLID_REACTIVE_LAYER_FLASH);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -78,7 +78,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 user_config.rgb_solid_reactive_layer ^= 1; // Toggles the status
                 eeconfig_update_user(user_config.raw);
                 if (user_config.rgb_solid_reactive_layer) {
-                    rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_SOLID_REACTIVE_LAYER);
+                    rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_SOLID_REACTIVE_LAYER_FLASH);
                 }
             }
             return false;
